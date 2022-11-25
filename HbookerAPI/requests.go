@@ -45,9 +45,6 @@ func (is *HttpUtils) GetResultBody() string {
 func (is *HttpUtils) GetCookie() []*http.Cookie {
 	return is.cookie
 }
-func (is *HttpUtils) GetValue(key string) string {
-	return is.query_data.Get(key)
-}
 
 func (is *HttpUtils) GetUrl() string {
 	return is.url
@@ -66,7 +63,7 @@ func (is *HttpUtils) params(param map[string]string) *HttpUtils {
 
 func NewHttpUtils(api_url, method string) *HttpUtils {
 	req := &HttpUtils{method: method, query_data: &url.Values{}}
-	req.url = "https://app.hbooker.com/" + strings.ReplaceAll(api_url, "https://app.hbooker.com/", "")
+	req.url = WEB_SITE + strings.ReplaceAll(api_url, WEB_SITE, "")
 	req.Add("login_token", HbookerKey.LoginToken).
 		Add("account", HbookerKey.Account).
 		Add("app_version", HbookerKey.AppVersion).

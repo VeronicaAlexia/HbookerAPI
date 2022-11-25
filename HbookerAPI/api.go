@@ -36,12 +36,7 @@ func GET_BOOK_INFORMATION(bid string) HbookerStruct.Detail {
 
 func GET_SEARCH(KeyWord string, page int) HbookerStruct.Search {
 	var search HbookerStruct.Search
-	params := map[string]string{
-		"count":          "10",
-		"page":           strconv.Itoa(page),
-		"category_index": "0",
-		"key":            KeyWord,
-	}
+	params := map[string]string{"count": "10", "page": strconv.Itoa(page), "category_index": "0", "key": KeyWord}
 	NewHttpUtils(BOOKCITY_GET_FILTER_LIST, "POST").params(params).NewRequests().Unmarshal(&search)
 	return search
 
