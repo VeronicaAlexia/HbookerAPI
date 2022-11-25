@@ -75,20 +75,11 @@ func NewHttpUtils(api_url, method string) *HttpUtils {
 	return req
 }
 
-func (is *HttpUtils) NEW_SET_THE_HEADERS() {
-	HeaderCollection := make(map[string]string)
-	HeaderCollection["Content-Type"] = "application/x-www-form-urlencoded"
-	HeaderCollection["User-Agent"] = "Android com.kuangxiangciweimao.novel " + HbookerKey.AppVersion
-
-	for HeaderKey, HeaderValue := range HeaderCollection {
-		is.response.Header.Set(HeaderKey, HeaderValue)
-	}
-}
-
 func (is *HttpUtils) NewRequests() *HttpUtils {
 	is.content = nil
 	is.response = MustNewRequest(is.method, is.url, is.GetEncodeParams())
-	is.NEW_SET_THE_HEADERS()
+	is.response.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	is.response.Header.Set("User-Agent", "Android com.kuangxiangciweimao.novel "+HbookerKey.AppVersion)
 	if response, ok := http.DefaultClient.Do(is.response); ok == nil {
 		is.cookie = response.Cookies()
 		result_body, _ := io.ReadAll(response.Body)
