@@ -3,13 +3,12 @@ package HbookerAPI
 import (
 	"github.com/VeronicaAlexia/HbookerAPI/HbookerStruct"
 	"github.com/VeronicaAlexia/HbookerAPI/HbookerStruct/bookshelf"
-	"github.com/VeronicaAlexia/HbookerAPI/HbookerStruct/division"
 	"strconv"
 	"time"
 )
 
-func GET_DIVISION_LIST_BY_BOOKID(BookId string) division.VolumeList {
-	var divisionList division.VolumeList
+func GET_DIVISION_LIST_BY_BOOKID(BookId string) HbookerStruct.VolumeList {
+	var divisionList HbookerStruct.VolumeList
 	NewHttpUtils(GET_DIVISION_LIST, "POST").Add("book_id", BookId).NewRequests().Unmarshal(&divisionList)
 	return divisionList
 }

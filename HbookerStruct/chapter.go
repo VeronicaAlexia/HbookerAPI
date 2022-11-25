@@ -3,6 +3,7 @@ package HbookerStruct
 type Chapter struct {
 	Code string      `json:"code"`
 	Data ChapterData `json:"data"`
+	Tip  interface{} `json:"tip"`
 }
 
 type ChapterData struct {

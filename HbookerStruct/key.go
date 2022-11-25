@@ -1,10 +1,9 @@
 package HbookerStruct
 
 type Key struct {
-	Code string  `json:"code"`
-	Data KeyData `json:"data"`
-}
-
-type KeyData struct {
-	Command string `json:"command"`
+	Code string      `json:"code"`
+	Tip  interface{} `json:"tip"`
+	Data struct {
+		Command string `json:"command"`
+	} `json:"data"`
 }
