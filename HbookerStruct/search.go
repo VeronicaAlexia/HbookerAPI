@@ -7,11 +7,11 @@ type Search struct {
 }
 
 type SearchData struct {
-	TagList  []SearchTagList `json:"tag_list"`
-	BookList []BookList      `json:"book_list"`
+	TagList  []SearchTagList  `json:"tag_list"`
+	BookList []SearchBookList `json:"book_list"`
 }
 
-type BookList struct {
+type SearchBookList struct {
 	BookID          string                `json:"book_id"`
 	BookName        string                `json:"book_name"`
 	Description     string                `json:"description"`

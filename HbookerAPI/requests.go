@@ -18,13 +18,13 @@ var HbookerKey = struct {
 }{}
 
 type HttpUtils struct {
-	url         string
-	method      string
-	cookie      []*http.Cookie
-	response    *http.Request
-	app_type    string
-	query_data  *url.Values
-	result_body []byte
+	url        string
+	method     string
+	cookie     []*http.Cookie
+	response   *http.Request
+	app_type   string
+	query_data *url.Values
+	content    []byte
 }
 
 func MustNewRequest(method, url string, data io.Reader) *http.Request {
@@ -39,7 +39,7 @@ func (is *HttpUtils) GetEncodeParams() *bytes.Reader {
 	return bytes.NewReader([]byte(is.query_data.Encode()))
 }
 func (is *HttpUtils) GetResultBody() string {
-	return string(is.result_body)
+	return string(is.content)
 }
 
 func (is *HttpUtils) GetCookie() []*http.Cookie {
@@ -86,13 +86,13 @@ func (is *HttpUtils) NEW_SET_THE_HEADERS() {
 }
 
 func (is *HttpUtils) NewRequests() *HttpUtils {
-	is.result_body = nil
+	is.content = nil
 	is.response = MustNewRequest(is.method, is.url, is.GetEncodeParams())
 	is.NEW_SET_THE_HEADERS()
 	if response, ok := http.DefaultClient.Do(is.response); ok == nil {
 		is.cookie = response.Cookies()
 		result_body, _ := io.ReadAll(response.Body)
-		is.result_body = Decode(string(result_body), "")
+		is.content = Decode(string(result_body), "")
 		//fmt.Println(string(is.result_body))
 	} else {
 		fmt.Println("NewRequests:", ok)
@@ -101,7 +101,7 @@ func (is *HttpUtils) NewRequests() *HttpUtils {
 }
 
 func (is *HttpUtils) Unmarshal(s any) *HttpUtils {
-	err := json.Unmarshal(is.result_body, s)
+	err := json.Unmarshal(is.content, s)
 	if err != nil {
 		fmt.Println("Unmarshal:", err)
 	}

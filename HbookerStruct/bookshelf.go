@@ -1,4 +1,4 @@
-package bookshelf
+package HbookerStruct
 
 type GetShelfList struct {
 	Code string `json:"code"`

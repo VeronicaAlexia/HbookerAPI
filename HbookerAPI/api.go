@@ -2,7 +2,6 @@ package HbookerAPI
 
 import (
 	"github.com/VeronicaAlexia/HbookerAPI/HbookerStruct"
-	"github.com/VeronicaAlexia/HbookerAPI/HbookerStruct/bookshelf"
 	"strconv"
 	"time"
 )
@@ -19,15 +18,15 @@ func GET_CATALOGUE(DivisionId string) HbookerStruct.Chapter {
 	return chapterList
 }
 
-func GET_BOOK_SHELF_INDEXES_INFORMATION(shelf_id string) *bookshelf.BookList {
+func GET_BOOK_SHELF_INDEXES_INFORMATION(shelf_id string) *HbookerStruct.BookList {
 	NewHttpUtils(BOOKSHELF_GET_SHELF_BOOK_LIST, "POST").Add("shelf_id", shelf_id).Add("direction", "prev").
-		Add("last_mod_time", "0").NewRequests().Unmarshal(&bookshelf.BookList{})
-	return &bookshelf.BookList{}
+		Add("last_mod_time", "0").NewRequests().Unmarshal(&HbookerStruct.BookList{})
+	return &HbookerStruct.BookList{}
 }
 
-func GET_BOOK_SHELF_INFORMATION() *bookshelf.GetShelfList {
-	NewHttpUtils(BOOKSHELF_GET_SHELF_LIST, "POST").NewRequests().Unmarshal(&bookshelf.GetShelfList{})
-	return &bookshelf.GetShelfList{}
+func GET_BOOK_SHELF_INFORMATION() *HbookerStruct.GetShelfList {
+	NewHttpUtils(BOOKSHELF_GET_SHELF_LIST, "POST").NewRequests().Unmarshal(&HbookerStruct.GetShelfList{})
+	return &HbookerStruct.GetShelfList{}
 }
 func GET_BOOK_INFORMATION(bid string) HbookerStruct.Detail {
 	var book HbookerStruct.Detail
