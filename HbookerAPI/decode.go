@@ -16,18 +16,16 @@ func SHA256(data []byte) []byte {
 
 // AESDecrypt AES 解密
 func AESDecrypt(EncryptKey string, contentText string) ([]byte, error) {
+	var iv = []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	if decoded, err := base64.StdEncoding.DecodeString(contentText); err == nil {
 		if block, ok := aes.NewCipher(SHA256([]byte(EncryptKey))[:32]); ok == nil {
-			blockModel, plainText := cipher.NewCBCDecrypter(block,
-				[]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}), make([]byte, len(decoded))
+			blockModel, plainText := cipher.NewCBCDecrypter(block, iv), make([]byte, len(decoded))
 			blockModel.CryptBlocks(plainText, decoded)
 			return plainText[:(len(plainText) - int(plainText[len(plainText)-1]))], nil
 		} else {
-			fmt.Println("AESDecrypt Error:", ok)
 			return nil, ok
 		}
 	} else {
-		fmt.Println("Base64Decode Error:", err)
 		return nil, err
 	}
 }
@@ -37,9 +35,10 @@ func Decode(content string, EncryptKey string) []byte {
 	if EncryptKey == "" {
 		EncryptKey = "zG2nSeEfSHfvTCHy5LCcqtBbQehKNLXn"
 	}
-	if raw, ok := AESDecrypt(EncryptKey, content); ok == nil {
+	raw, ok := AESDecrypt(EncryptKey, content)
+	if ok == nil {
 		return raw
-	} else {
-		panic("Decrypt Error, Please Check Your Key!")
 	}
+	fmt.Println("Decrypt Error, Please Check Your Key!", ok)
+	return nil
 }
