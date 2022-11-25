@@ -1,4 +1,4 @@
-package _struct
+package HbookerStruct
 
 var Chapter = struct {
 	Code string      `json:"code"`

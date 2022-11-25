@@ -1,4 +1,4 @@
-package _struct
+package HbookerStruct
 
 type Login struct {
 	Code string      `json:"code"`
