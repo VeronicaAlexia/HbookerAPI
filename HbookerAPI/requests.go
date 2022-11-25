@@ -11,10 +11,10 @@ import (
 )
 
 var HbookerKey = struct {
-	LoginToken  string
-	Account     string
-	AppVersion  string
-	DeviceToken string
+	LoginToken  string `json:"login_token"`
+	Account     string `json:"account"`
+	AppVersion  string `json:"app_version"`
+	DeviceToken string `json:"device_token"`
 }{}
 
 type HttpUtils struct {
@@ -55,6 +55,12 @@ func (is *HttpUtils) GetUrl() string {
 
 func (is *HttpUtils) Add(key string, value string) *HttpUtils {
 	is.query_data.Add(key, value)
+	return is
+}
+func (is *HttpUtils) params(param map[string]string) *HttpUtils {
+	for key, value := range param {
+		is.Add(key, value)
+	}
 	return is
 }
 

@@ -36,11 +36,16 @@ func GET_BOOK_INFORMATION(bid string) HbookerStruct.Detail {
 	return book
 }
 
-func GET_SEARCH(KeyWord string, page int) *HbookerStruct.Search {
-	NewHttpUtils(BOOKCITY_GET_FILTER_LIST, "POST").Add("count", "10").
-		Add("page", strconv.Itoa(page)).Add("category_index", "0").Add("key", KeyWord).NewRequests().
-		Unmarshal(&HbookerStruct.Search{})
-	return &HbookerStruct.Search{}
+func GET_SEARCH(KeyWord string, page int) HbookerStruct.Search {
+	var search HbookerStruct.Search
+	params := map[string]string{
+		"count":          "10",
+		"page":           strconv.Itoa(page),
+		"category_index": "0",
+		"key":            KeyWord,
+	}
+	NewHttpUtils(BOOKCITY_GET_FILTER_LIST, "POST").params(params).NewRequests().Unmarshal(&search)
+	return search
 
 }
 
