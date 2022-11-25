@@ -8,14 +8,16 @@ import (
 	"time"
 )
 
-func GET_DIVISION_LIST_BY_BOOKID(BookId string) *division.VolumeList {
-	NewHttpUtils(GET_DIVISION_LIST, "POST").Add("book_id", BookId).NewRequests().Unmarshal(&division.VolumeList{})
-	return &division.VolumeList{}
+func GET_DIVISION_LIST_BY_BOOKID(BookId string) division.VolumeList {
+	var divisionList division.VolumeList
+	NewHttpUtils(GET_DIVISION_LIST, "POST").Add("book_id", BookId).NewRequests().Unmarshal(&divisionList)
+	return divisionList
 }
 
-func GET_CATALOGUE(DivisionId string) []HbookerStruct.ChapterList {
-	NewHttpUtils(GET_CHAPTER_UPDATE, "POST").Add("division_id", DivisionId).NewRequests().Unmarshal(&HbookerStruct.Chapter)
-	return HbookerStruct.Chapter.Data.ChapterList
+func GET_CATALOGUE(DivisionId string) HbookerStruct.Chapter {
+	var chapterList HbookerStruct.Chapter
+	NewHttpUtils(GET_CHAPTER_UPDATE, "POST").Add("division_id", DivisionId).NewRequests().Unmarshal(&chapterList)
+	return chapterList
 }
 
 func GET_BOOK_SHELF_INDEXES_INFORMATION(shelf_id string) *bookshelf.BookList {
@@ -28,10 +30,10 @@ func GET_BOOK_SHELF_INFORMATION() *bookshelf.GetShelfList {
 	NewHttpUtils(BOOKSHELF_GET_SHELF_LIST, "POST").NewRequests().Unmarshal(&bookshelf.GetShelfList{})
 	return &bookshelf.GetShelfList{}
 }
-func GET_BOOK_INFORMATION(bid string) *HbookerStruct.Detail {
-	NewHttpUtils(BOOK_GET_INFO_BY_ID, "POST").
-		Add("book_id", bid).NewRequests().Unmarshal(&HbookerStruct.LoginData{})
-	return &HbookerStruct.Detail{}
+func GET_BOOK_INFORMATION(bid string) HbookerStruct.Detail {
+	var book HbookerStruct.Detail
+	NewHttpUtils(BOOK_GET_INFO_BY_ID, "POST").Add("book_id", bid).NewRequests().Unmarshal(&book)
+	return book
 }
 
 func GET_SEARCH(KeyWord string, page int) *HbookerStruct.Search {

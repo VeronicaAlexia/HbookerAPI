@@ -1,9 +1,9 @@
 package HbookerStruct
 
-var Chapter = struct {
+type Chapter struct {
 	Code string      `json:"code"`
 	Data ChapterData `json:"data"`
-}{}
+}
 
 type ChapterData struct {
 	ChapterList     []ChapterList `json:"chapter_list"`
