@@ -42,6 +42,18 @@ func GET_SEARCH(KeyWord string, page int) HbookerStruct.Search {
 
 }
 
+func GET_AUTO_SIGN(uuid string) {
+	params := map[string]string{
+		"oauth_type":     "",
+		"uuid":           "android" + uuid,
+		"oauth_union_id": "",
+		"gender":         "1",
+		"channel":        "PCdownloadC",
+		"oauth_open_id":  "",
+	}
+	NewHttpUtils(SIGNUP, "POST").NewRequests().params(params)
+}
+
 func GET_TAG_BOOK(page int) HbookerStruct.Search {
 	var search HbookerStruct.Search
 	params := map[string]string{
@@ -63,9 +75,6 @@ func GET_TAG_BOOK(page int) HbookerStruct.Search {
 }
 
 func GET_LOGIN_TOKEN(account, password string) *HbookerStruct.Login {
-	// hbooker new version add GEETEST verification, if you enter the wrong information or log in multiple times, GEETEST verification will be triggered.
-	// IP address may need to log in again after a few hours to avoid triggering verification, you can try to change the IP to avoid triggering verification.
-
 	NewHttpUtils(MY_SIGN_LOGIN, "POST").Add("login_name", account).
 		Add("password", password).NewRequests().Unmarshal(&HbookerStruct.Login{})
 	return &HbookerStruct.Login{}
