@@ -81,7 +81,6 @@ func (is *HttpUtils) NewRequests() *HttpUtils {
 		is.cookie = response.Cookies()
 		result_body, _ := io.ReadAll(response.Body)
 		is.content = Decode(string(result_body), "")
-		//fmt.Println(string(is.result_body))
 	} else {
 		fmt.Println("NewRequests:", ok)
 	}
