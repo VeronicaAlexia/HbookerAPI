@@ -1,4 +1,4 @@
-package HbookerAPI
+package config
 
 import (
 	"crypto/aes"

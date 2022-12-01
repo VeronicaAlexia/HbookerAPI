@@ -1,4 +1,4 @@
-package HbookerAPI
+package request
 
 const ABOUT_URL = "https://app.hbooker.com/setting/view_about"
 const ADD_BBS_COMMENT = "bbs/add_bbs_comment"

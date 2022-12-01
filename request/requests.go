@@ -1,9 +1,10 @@
-package HbookerAPI
+package request
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/VeronicaAlexia/HbookerAPI/config"
 	"io"
 	"net/http"
 	"net/url"
@@ -54,7 +55,7 @@ func (is *HttpUtils) Add(key string, value string) *HttpUtils {
 	is.query_data.Add(key, value)
 	return is
 }
-func (is *HttpUtils) params(param map[string]string) *HttpUtils {
+func (is *HttpUtils) Params(param map[string]string) *HttpUtils {
 	for key, value := range param {
 		is.Add(key, value)
 	}
@@ -80,7 +81,7 @@ func (is *HttpUtils) NewRequests() *HttpUtils {
 	if response, ok := http.DefaultClient.Do(is.response); ok == nil {
 		is.cookie = response.Cookies()
 		result_body, _ := io.ReadAll(response.Body)
-		is.content = Decode(string(result_body), "")
+		is.content = config.Decode(string(result_body), "")
 	} else {
 		fmt.Println("NewRequests:", ok)
 	}
