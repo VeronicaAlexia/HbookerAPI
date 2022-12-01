@@ -1,4 +1,4 @@
-package HbookerStruct
+package Template
 
 type Detail struct {
 	Code         string        `json:"code"`

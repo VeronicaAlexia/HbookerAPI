@@ -1,4 +1,4 @@
-package HbookerStruct
+package Template
 
 type ConfigStruct struct {
 	App   App   `mapstructure:"app"`

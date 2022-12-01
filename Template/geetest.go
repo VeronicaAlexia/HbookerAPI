@@ -1,4 +1,4 @@
-package HbookerStruct
+package Template
 
 type Geetest struct {
 	Code int         `json:"code"`

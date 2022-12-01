@@ -1,4 +1,4 @@
-package HbookerStruct
+package Template
 
 type VolumeList struct {
 	Code string       `json:"code"`
