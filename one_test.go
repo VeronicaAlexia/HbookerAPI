@@ -3,15 +3,15 @@ package main
 import (
 	"fmt"
 	"github.com/VeronicaAlexia/HbookerAPI/HbookerAPI/book"
-	"github.com/VeronicaAlexia/HbookerAPI/request"
+	"github.com/VeronicaAlexia/HbookerAPI/config"
 	"testing"
 )
 
 func Test_Book(t *testing.T) {
-	request.HbookerKey.AppVersion = "2.9.290"
-	request.HbookerKey.Account = ""
-	request.HbookerKey.LoginToken = ""
-	request.HbookerKey.DeviceToken = "ciweimao_"
+	config.AppConfig.AppVersion = "2.9.290"
+	config.AppConfig.Account = ""
+	config.AppConfig.LoginToken = ""
+	config.AppConfig.DeviceToken = "ciweimao_"
 	book_info := book.GET_BOOK_INFORMATION("")
 	fmt.Println(book_info.Data.BookInfo.BookName)
 	fmt.Println(book_info.Data.BookInfo.AuthorName)

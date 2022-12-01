@@ -11,13 +11,6 @@ import (
 	"strings"
 )
 
-var HbookerKey = struct {
-	LoginToken  string `json:"login_token"`
-	Account     string `json:"account"`
-	AppVersion  string `json:"app_version"`
-	DeviceToken string `json:"device_token"`
-}{}
-
 type HttpUtils struct {
 	url        string
 	method     string
@@ -65,10 +58,10 @@ func (is *HttpUtils) Params(param map[string]string) *HttpUtils {
 func NewHttpUtils(api_url, method string) *HttpUtils {
 	req := &HttpUtils{method: method, query_data: &url.Values{}}
 	req.url = WEB_SITE + strings.ReplaceAll(api_url, WEB_SITE, "")
-	req.Add("login_token", HbookerKey.LoginToken).
-		Add("account", HbookerKey.Account).
-		Add("app_version", HbookerKey.AppVersion).
-		Add("device_token", HbookerKey.DeviceToken)
+	req.Add("login_token", config.AppConfig.LoginToken).
+		Add("account", config.AppConfig.Account).
+		Add("app_version", config.AppConfig.AppVersion).
+		Add("device_token", config.AppConfig.DeviceToken)
 
 	return req
 }
@@ -77,7 +70,7 @@ func (is *HttpUtils) NewRequests() *HttpUtils {
 	is.content = nil
 	is.response = MustNewRequest(is.method, is.url, is.GetEncodeParams())
 	is.response.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	is.response.Header.Set("User-Agent", "Android com.kuangxiangciweimao.novel "+HbookerKey.AppVersion)
+	is.response.Header.Set("User-Agent", "Android com.kuangxiangciweimao.novel "+config.AppConfig.AppVersion)
 	if response, ok := http.DefaultClient.Do(is.response); ok == nil {
 		is.cookie = response.Cookies()
 		result_body, _ := io.ReadAll(response.Body)
