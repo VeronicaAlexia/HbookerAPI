@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/VeronicaAlexia/HbookerAPI/config"
+	"github.com/VeronicaAlexia/HbookerAPI/pkg/config"
 	"net/url"
 	"strings"
 )

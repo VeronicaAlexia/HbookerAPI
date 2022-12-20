@@ -2,7 +2,7 @@ package request
 
 import (
 	"fmt"
-	"github.com/VeronicaAlexia/HbookerAPI/config"
+	config2 "github.com/VeronicaAlexia/HbookerAPI/pkg/config"
 	"io"
 	"net/http"
 	"net/url"
@@ -30,11 +30,11 @@ func (is *HttpUtils) NewRequests() *HttpUtils {
 		return nil
 	}
 	is.response.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	is.response.Header.Set("User-Agent", "Android com.kuangxiangciweimao.novel "+config.AppConfig.AppVersion)
+	is.response.Header.Set("User-Agent", "Android com.kuangxiangciweimao.novel "+config2.AppConfig.AppVersion)
 	if response, ok := http.DefaultClient.Do(is.response); ok == nil {
 		is.cookie = response.Cookies()
 		result_body, _ := io.ReadAll(response.Body)
-		is.Content = config.Decode(string(result_body), "")
+		is.Content = config2.Decode(string(result_body), "")
 	} else {
 		fmt.Println("NewRequests:", ok)
 	}
