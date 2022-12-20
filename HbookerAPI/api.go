@@ -8,14 +8,16 @@ import (
 )
 
 func GET_BOOK_SHELF_INDEXES_INFORMATION(shelf_id string) *Template.BookList {
+	var bookList Template.BookList
 	request.NewHttpUtils(request.BOOKSHELF_GET_SHELF_BOOK_LIST, "POST").Add("shelf_id", shelf_id).Add("direction", "prev").
-		Add("last_mod_time", "0").NewRequests().Unmarshal(&Template.BookList{})
-	return &Template.BookList{}
+		Add("last_mod_time", "0").NewRequests().Unmarshal(&bookList)
+	return &bookList
 }
 
 func GET_BOOK_SHELF_INFORMATION() *Template.GetShelfList {
-	request.NewHttpUtils(request.BOOKSHELF_GET_SHELF_LIST, "POST").NewRequests().Unmarshal(&Template.GetShelfList{})
-	return &Template.GetShelfList{}
+	var shelfList Template.GetShelfList
+	request.NewHttpUtils(request.BOOKSHELF_GET_SHELF_LIST, "POST").NewRequests().Unmarshal(&shelfList)
+	return &shelfList
 }
 func GET_SEARCH(KeyWord string, page int) Template.Search {
 	var search Template.Search
