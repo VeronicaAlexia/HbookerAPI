@@ -9,14 +9,14 @@ import (
 
 func GET_BOOK_SHELF_INDEXES_INFORMATION(shelf_id string) *Template.BookList {
 	var bookList Template.BookList
-	request.NewHttpUtils(request.BOOKSHELF_GET_SHELF_BOOK_LIST, "POST").Add("shelf_id", shelf_id).Add("direction", "prev").
+	request.Post(request.BOOKSHELF_GET_SHELF_BOOK_LIST).Add("shelf_id", shelf_id).Add("direction", "prev").
 		Add("last_mod_time", "0").NewRequests().Unmarshal(&bookList)
 	return &bookList
 }
 
 func GET_BOOK_SHELF_INFORMATION() *Template.GetShelfList {
 	var shelfList Template.GetShelfList
-	request.NewHttpUtils(request.BOOKSHELF_GET_SHELF_LIST, "POST").NewRequests().Unmarshal(&shelfList)
+	request.Post(request.BOOKSHELF_GET_SHELF_LIST).NewRequests().Unmarshal(&shelfList)
 	return &shelfList
 }
 
@@ -29,7 +29,7 @@ func GET_AUTO_SIGN(uuid string) {
 		"channel":        "PCdownloadC",
 		"oauth_open_id":  "",
 	}
-	request.NewHttpUtils(request.SIGNUP, "POST").NewRequests().Params(params)
+	request.Post(request.SIGNUP).NewRequests().Params(params)
 }
 
 func GET_TAG_BOOK(page int) Template.Search {
@@ -47,35 +47,35 @@ func GET_TAG_BOOK(page int) Template.Search {
 		"up_status":      "",
 		"order":          "uptime",
 	}
-	request.NewHttpUtils(request.BOOKCITY_GET_FILTER_LIST, "POST").Params(params).NewRequests().Unmarshal(&search)
+	request.Post(request.BOOKCITY_GET_FILTER_LIST).Params(params).NewRequests().Unmarshal(&search)
 	return search
 
 }
 
 func GET_LOGIN_TOKEN(account, password string) *Template.Login {
-	request.NewHttpUtils(request.MY_SIGN_LOGIN, "POST").Add("login_name", account).
+	request.Post(request.MY_SIGN_LOGIN).Add("login_name", account).
 		Add("password", password).NewRequests().Unmarshal(&Template.Login{})
 	return &Template.Login{}
 }
 
 func GET_USE_GEETEST() *Template.Geetest {
-	request.NewHttpUtils(request.USE_GEETEST, "POST").NewRequests().Unmarshal(&Template.Geetest{})
+	request.Post(request.USE_GEETEST).NewRequests().Unmarshal(&Template.Geetest{})
 	return &Template.Geetest{}
 }
 
 func GET_GEETEST_REGISTER(UserID string) (string, string) {
-	request.NewHttpUtils(request.GEETEST_REGISTER, "POST").Add("user_id", UserID).
+	request.Post(request.GEETEST_REGISTER).Add("user_id", UserID).
 		Add("t", strconv.FormatInt(time.Now().UnixNano()/1e6, 10)).NewRequests().Unmarshal(&Template.Challenge)
 	return Template.Challenge.Challenge, Template.Challenge.Gt
 }
 
 func GET_KET_BY_CHAPTER_ID(chapterId string) *Template.Key {
-	request.NewHttpUtils(request.GET_CHAPTER_KEY, "POST").Add("chapter_id", chapterId).NewRequests().Unmarshal(&Template.Key{})
+	request.Post(request.GET_CHAPTER_KEY).Add("chapter_id", chapterId).NewRequests().Unmarshal(&Template.Key{})
 	return &Template.Key{}
 }
 
 func GET_CHAPTER_CONTENT(chapterId, chapter_key string) *Template.Content {
-	request.NewHttpUtils(request.GET_CPT_IFM, "POST").Add("chapter_id", chapterId).
+	request.Post(request.GET_CPT_IFM).Add("chapter_id", chapterId).
 		Add("chapter_command", chapter_key).NewRequests().Unmarshal(&Template.Content{})
 	return &Template.Content{}
 }

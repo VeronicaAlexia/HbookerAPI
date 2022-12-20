@@ -17,8 +17,14 @@ func GET_DIVISION_LIST_BY_BOOKID(BookId string) Template.NewVolumeList {
 	return divisionList
 }
 
-func GET_CATALOGUE(DivisionId string) Template.Chapter {
+func GET_CATALOGUE_OLD(DivisionId string) Template.Chapter {
 	var chapterList Template.Chapter
 	request.Post(request.GET_CHAPTER_UPDATE).Add("division_id", DivisionId).NewRequests().Unmarshal(&chapterList)
 	return chapterList
+}
+
+func GET_DIVISION_LIST_BY_BOOKID_OLD(BookId string) Template.VolumeList {
+	var divisionList Template.VolumeList
+	request.Post(request.GET_DIVISION_LIST_NEW).Add("book_id", BookId).NewRequests().Unmarshal(&divisionList)
+	return divisionList
 }
