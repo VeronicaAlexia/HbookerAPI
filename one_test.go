@@ -12,12 +12,12 @@ func Test_Book(t *testing.T) {
 	config.AppConfig.Account = ""
 	config.AppConfig.LoginToken = ""
 	config.AppConfig.DeviceToken = "ciweimao_"
-	book_info := book.GET_BOOK_INFORMATION("")
+	book_info := book.GET_BOOK_INFORMATION("100280239")
 	fmt.Println(book_info.Data.BookInfo.BookName)
 	fmt.Println(book_info.Data.BookInfo.AuthorName)
-	for index, div := range book.GET_DIVISION_LIST_BY_BOOKID(book_info.Data.BookInfo.BookID).Data.DivisionList {
-		for _, chapter := range book.GET_CATALOGUE(div.DivisionID).Data.ChapterList {
-			fmt.Println("第", index, "卷", chapter.ChapterTitle)
+	for _, div := range book.GET_DIVISION_LIST_BY_BOOKID(book_info.Data.BookInfo.BookID).Data.ChapterList {
+		for _, chapter := range div.ChapterList {
+			fmt.Println("第", div.DivisionIndex, "卷:", div.DivisionName, chapter.ChapterTitle)
 		}
 	}
 	fmt.Println("Done: Test_Book")

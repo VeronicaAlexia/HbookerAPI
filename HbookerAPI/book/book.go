@@ -7,18 +7,18 @@ import (
 
 func GET_BOOK_INFORMATION(bid string) Template.Detail {
 	var book Template.Detail
-	request.NewHttpUtils(request.BOOK_GET_INFO_BY_ID, "POST").Add("book_id", bid).NewRequests().Unmarshal(&book)
+	request.Post(request.BOOK_GET_INFO_BY_ID).Add("book_id", bid).NewRequests().Unmarshal(&book)
 	return book
 }
 
-func GET_DIVISION_LIST_BY_BOOKID(BookId string) Template.VolumeList {
-	var divisionList Template.VolumeList
-	request.NewHttpUtils(request.GET_DIVISION_LIST_NEW, "POST").Add("book_id", BookId).NewRequests().Unmarshal(&divisionList)
+func GET_DIVISION_LIST_BY_BOOKID(BookId string) Template.NewVolumeList {
+	var divisionList Template.NewVolumeList
+	request.Post(request.GET_DIVISION_LIST_NEW).Add("book_id", BookId).NewRequests().Unmarshal(&divisionList).WriteJson()
 	return divisionList
 }
 
 func GET_CATALOGUE(DivisionId string) Template.Chapter {
 	var chapterList Template.Chapter
-	request.NewHttpUtils(request.GET_CHAPTER_UPDATE, "POST").Add("division_id", DivisionId).NewRequests().Unmarshal(&chapterList)
+	request.Post(request.GET_CHAPTER_UPDATE).Add("division_id", DivisionId).NewRequests().Unmarshal(&chapterList)
 	return chapterList
 }
