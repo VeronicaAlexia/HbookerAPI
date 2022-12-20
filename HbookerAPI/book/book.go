@@ -13,7 +13,7 @@ func GET_BOOK_INFORMATION(bid string) Template.Detail {
 
 func GET_DIVISION_LIST_BY_BOOKID(BookId string) Template.VolumeList {
 	var divisionList Template.VolumeList
-	request.NewHttpUtils(request.GET_DIVISION_LIST, "POST").Add("book_id", BookId).NewRequests().Unmarshal(&divisionList)
+	request.NewHttpUtils(request.GET_DIVISION_LIST_NEW, "POST").Add("book_id", BookId).NewRequests().Unmarshal(&divisionList)
 	return divisionList
 }
 
