@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/VeronicaAlexia/HbookerAPI/HbookerAPI/book"
-	"github.com/VeronicaAlexia/HbookerAPI/config"
+	"github.com/VeronicaAlexia/HbookerAPI/ciweimao/book"
+	"github.com/VeronicaAlexia/HbookerAPI/pkg/config"
 	"testing"
 )
 
-func Test_Book(t *testing.T) {
+func TestBook(t *testing.T) {
 	config.AppConfig.AppVersion = "2.9.290"
 	config.AppConfig.Account = ""
 	config.AppConfig.LoginToken = ""
