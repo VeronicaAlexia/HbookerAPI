@@ -9,20 +9,19 @@ import (
 )
 
 type HttpUtils struct {
-	url        string
-	method     string
-	cookie     []*http.Cookie
-	response   *http.Request
-	app_type   string
-	query_data *url.Values
-	content    []byte
+	url       string
+	method    string
+	cookie    []*http.Cookie
+	response  *http.Request
+	QueryData *url.Values
+	Content   []byte
 }
 
 func (is *HttpUtils) NewRequests() *HttpUtils {
 	var err error
-	is.content = nil
+	is.Content = nil
 	if is.method == "GET" {
-		is.response, err = http.NewRequest(is.method, is.url+"?"+is.query_data.Encode(), nil)
+		is.response, err = http.NewRequest(is.method, is.url+"?"+is.QueryData.Encode(), nil)
 	} else {
 		is.response, err = http.NewRequest(is.method, is.url, is.GetEncodeParams())
 	}
@@ -35,7 +34,7 @@ func (is *HttpUtils) NewRequests() *HttpUtils {
 	if response, ok := http.DefaultClient.Do(is.response); ok == nil {
 		is.cookie = response.Cookies()
 		result_body, _ := io.ReadAll(response.Body)
-		is.content = config.Decode(string(result_body), "")
+		is.Content = config.Decode(string(result_body), "")
 	} else {
 		fmt.Println("NewRequests:", ok)
 	}

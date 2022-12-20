@@ -9,14 +9,14 @@ import (
 )
 
 func (is *HttpUtils) Unmarshal(s any) *HttpUtils {
-	err := json.Unmarshal(is.content, s)
+	err := json.Unmarshal(is.Content, s)
 	if err != nil {
 		fmt.Println("Unmarshal:", err)
 	}
 	return is
 }
 func (is *HttpUtils) WriteJson() *HttpUtils {
-	info, err := json.MarshalIndent(string(is.content), "", "  ")
+	info, err := json.MarshalIndent(string(is.Content), "", "  ")
 	if err != nil {
 		fmt.Println("WriteJson:", err)
 	} else {
@@ -26,10 +26,10 @@ func (is *HttpUtils) WriteJson() *HttpUtils {
 }
 
 func (is *HttpUtils) GetEncodeParams() *bytes.Reader {
-	return bytes.NewReader([]byte(is.query_data.Encode()))
+	return bytes.NewReader([]byte(is.QueryData.Encode()))
 }
 func (is *HttpUtils) GetResultBody() string {
-	return string(is.content)
+	return string(is.Content)
 }
 
 func (is *HttpUtils) GetCookie() []*http.Cookie {
@@ -41,7 +41,7 @@ func (is *HttpUtils) GetUrl() string {
 }
 
 func (is *HttpUtils) Add(key string, value string) *HttpUtils {
-	is.query_data.Add(key, value)
+	is.QueryData.Add(key, value)
 	return is
 }
 func (is *HttpUtils) Params(param map[string]string) *HttpUtils {
