@@ -25,7 +25,7 @@ func GET_KET_BY_CHAPTER_ID(chapterId string) *Template.Key {
 
 func GET_CHAPTER_CONTENT(chapterId, chapter_key string) *Template.Content {
 	content := &Template.Content{}
-	params := map[string]string{"chapter_id": chapterId, "chapter_key": chapter_key}
+	params := map[string]string{"chapter_id": chapterId, "chapter_command": chapter_key}
 	request.Post(request.GET_CPT_IFM).Params(params).NewRequests().Unmarshal(content)
 	return content
 }

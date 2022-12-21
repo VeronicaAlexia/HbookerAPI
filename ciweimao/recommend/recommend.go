@@ -55,3 +55,17 @@ func (is *RECOMMEND) CHANGE_NEW_RECOMMEND() {
 		}
 	}
 }
+
+func (is *RECOMMEND) GET_HBOOKER_RECOMMEND() string {
+	//is.InitBookIdList() // init book_list_string and print recommend_list
+	//fmt.Println("y is next item recommendation\nd is download recommend book\npress any key to exit..")
+	//InputChoice := tools.InputStr(">")
+	//if InputChoice == "y" {
+	//	is.CHANGE_NEW_RECOMMEND() // change recommend_list
+	//	return is.GET_HBOOKER_RECOMMEND()
+	//} else if InputChoice == "d" {
+	//	return is.book_list[tools.InputInt("input index:", len(is.book_list))]
+	//}
+	return ""
+
+}
