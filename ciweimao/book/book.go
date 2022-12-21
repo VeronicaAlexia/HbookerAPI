@@ -1,43 +1,24 @@
 package book
 
 import (
-	"github.com/VeronicaAlexia/HbookerAPI/Template"
-	"github.com/VeronicaAlexia/HbookerAPI/request"
+	"fmt"
+	"github.com/VeronicaAlexia/HbookerAPI/pkg/config"
 )
 
-func GET_BOOK_INFORMATION(bid string) Template.Detail {
-	var book Template.Detail
-	request.Post(request.BOOK_GET_INFO_BY_ID).Add("book_id", bid).NewRequests().Unmarshal(&book)
-	return book
-}
-
-func GET_DIVISION_LIST_BY_BOOKID(BookId string) Template.NewVolumeList {
-	var divisionList Template.NewVolumeList
-	request.Post(request.GET_DIVISION_LIST_NEW).Add("book_id", BookId).NewRequests().Unmarshal(&divisionList).WriteJson()
-	return divisionList
-}
-
-func GET_KET_BY_CHAPTER_ID(chapterId string) *Template.Key {
-	get_chapter_cmd := &Template.Key{}
-	request.Post(request.GET_CHAPTER_KEY).Add("chapter_id", chapterId).NewRequests().Unmarshal(get_chapter_cmd)
-	return get_chapter_cmd
-}
-
-func GET_CHAPTER_CONTENT(chapterId, chapter_key string) *Template.Content {
-	content := &Template.Content{}
-	params := map[string]string{"chapter_id": chapterId, "chapter_key": chapter_key}
-	request.Post(request.GET_CPT_IFM).Params(params).NewRequests().Unmarshal(content)
-	return content
-}
-
-func GET_CATALOGUE_OLD(DivisionId string) Template.Chapter {
-	var chapterList Template.Chapter
-	request.Post(request.GET_CHAPTER_UPDATE).Add("division_id", DivisionId).NewRequests().Unmarshal(&chapterList)
-	return chapterList
-}
-
-func GET_DIVISION_LIST_BY_BOOKID_OLD(BookId string) Template.VolumeList {
-	var divisionList Template.VolumeList
-	request.Post(request.GET_DIVISION_LIST_NEW).Add("book_id", BookId).NewRequests().Unmarshal(&divisionList)
-	return divisionList
+func GetContent(chapterId string) string {
+	chapterCmd := GET_KET_BY_CHAPTER_ID(chapterId)
+	if chapterCmd.Code == "100000" {
+		for i := 0; i < 5; i++ {
+			content := GET_CHAPTER_CONTENT(chapterId, chapterCmd.Data.Command)
+			if content.Code == "100000" {
+				return string(config.Decode(content.Data.ChapterInfo.TxtContent, chapterCmd.Data.Command))
+			} else {
+				fmt.Println("GetContent Error: ", content.Code, content.Tip)
+				fmt.Println("retry: ", i)
+			}
+		}
+	} else {
+		fmt.Println("chapterCmd Error: ", chapterCmd.Code, chapterCmd.Tip)
+	}
+	return ""
 }
