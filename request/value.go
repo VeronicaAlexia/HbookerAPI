@@ -46,7 +46,7 @@ func (is *HttpUtils) Add(key string, value string) *HttpUtils {
 }
 func (is *HttpUtils) Params(param map[string]string) *HttpUtils {
 	for key, value := range param {
-		is.Add(key, value)
+		is.Add(key, value) // Add() is a method of url.Values
 	}
 	return is
 }

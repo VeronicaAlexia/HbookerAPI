@@ -15,9 +15,9 @@ type RECOMMEND struct {
 
 func NEW_RECOMMEND() *RECOMMEND {
 	var recommend_list [][]string
-	var recommend Template.Recommend2
-	request.Post(request.BOOKCITY_RECOMMEND_DATA).Add("theme_type", "NORMAL").Add("tab_type", "200").
-		NewRequests().Unmarshal(&recommend)
+	var recommend *Template.Recommend2
+	params := map[string]string{"theme_type": "NORMAL", "tab_type": "200"}
+	request.Post(request.BOOKCITY_RECOMMEND_DATA).Params(params).NewRequests().Unmarshal(recommend)
 	if recommend.Code != "100000" {
 		fmt.Println(recommend.Tip.(string))
 	} else {
@@ -43,9 +43,9 @@ func (is *RECOMMEND) InitBookIdList() {
 }
 
 func (is *RECOMMEND) CHANGE_NEW_RECOMMEND() {
-	var recommend Template.Recommend
-	request.Post(request.GET_CHANGE_RECOMMEND).
-		Add("book_id", is.book_list_string).Add("from_module_name", "长篇好书").NewRequests().Unmarshal(&recommend)
+	var recommend *Template.Recommend
+	params := map[string]string{"book_id": is.book_list_string, "from_module_name": "长篇好书"}
+	request.Post(request.GET_CHANGE_RECOMMEND).Params(params).NewRequests().Unmarshal(recommend)
 	is.recommend_list = nil
 	if recommend.Code != "100000" {
 		fmt.Println(recommend.Tip.(string))
