@@ -1,6 +1,6 @@
 package Template
 
-type GetShelfList struct {
+type ShelfList struct {
 	Code string `json:"code"`
 	Tip  any    `json:"tip"`
 	Data struct {
