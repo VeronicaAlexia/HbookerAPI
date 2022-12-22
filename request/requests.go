@@ -32,9 +32,13 @@ func (is *HttpUtils) NewRequests() *HttpUtils {
 	is.response.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	is.response.Header.Set("User-Agent", "Android com.kuangxiangciweimao.novel "+config2.AppConfig.AppVersion)
 	if response, ok := http.DefaultClient.Do(is.response); ok == nil {
-		is.cookie = response.Cookies()
-		result_body, _ := io.ReadAll(response.Body)
-		is.Content = config2.Decode(string(result_body), "")
+		Body, read := io.ReadAll(response.Body)
+		if read != nil {
+			fmt.Println("io.ReadAll:", read)
+			is.Content = nil
+		} else {
+			is.Content = config2.Decode(string(Body), "")
+		}
 	} else {
 		fmt.Println("NewRequests:", ok)
 	}
