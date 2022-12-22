@@ -14,10 +14,10 @@ func GET_SEARCH(KeyWord string, page int) *Template.Search {
 	return &search
 }
 
-func AllSearch(KeyWord string) []*Template.Search {
+func AllSearch(KeyWord string, maxPage int) []*Template.Search {
 	var searchList []*Template.Search
 	thread := threading.InitThreading(20)
-	for i := 1; i <= 20; i++ {
+	for i := 1; i <= maxPage; i++ {
 		thread.Add()
 		go func(i int) {
 			defer thread.Done()
